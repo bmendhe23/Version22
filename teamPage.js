@@ -21,12 +21,8 @@ import {data} from './temp.js'
 // </div>
 
 
-
-
-function createTeamData(teamData,container){
-    teamData.forEach(teamMember => {
-
-        let driveLink = teamMember.Photo;
+function createCard(teamMember,container,eventHead){
+    let driveLink = teamMember.Photo;
         let photo = driveLink;
         if(driveLink[0]=='h')
             photo = data[driveLink];
@@ -50,7 +46,10 @@ function createTeamData(teamData,container){
         contentBx.classList.add("contentBx")
         let name = document.createElement("h3");
         name.innerHTML = teamMember.Name;
+        let POR = document.createElement("span");
+        POR.innerHTML=teamMember.POR;
         contentBx.appendChild(name)
+        contentBx.appendChild(POR)
 
         content.appendChild(imgBx)
         content.appendChild(contentBx)
@@ -78,8 +77,24 @@ function createTeamData(teamData,container){
         card.appendChild(sci);
 
         container.appendChild(card);
+}
+
+function createTeamData(teamData,container,eventHead){
+    teamData.forEach(teamMember => {
+        let toPlace = container
+        if(teamMember.head){
+            toPlace = eventHead;
+        }
+        createCard(teamMember,toPlace)
     });
 }
+let eventHead = document.querySelector('.event-team-head')
+let centralHead = document.querySelector('.central-team-head')
+let hospitalityHead = document.querySelector('.hospitality-team-head')
+let publicHead = document.querySelector('.public-team-head')
+let alumniHead = document.querySelector('.alumni-team-head')
+let printingHead = document.querySelector('.printing-team-head')
+
 let eventTeamContainer = document.querySelector('.event-team')
 let centralTeamContainer = document.querySelector('.central-team')
 let hospitalityTeamContainer = document.querySelector('.hospitality-team')
@@ -87,9 +102,28 @@ let publicTeamContainer = document.querySelector('.public-team')
 let alumniTeamContainer = document.querySelector('.alumni-team')
 let printingTeamContainer = document.querySelector('.printing-team')
 
-createTeamData(eventTeam,eventTeamContainer);
-createTeamData(centralTeam,centralTeamContainer);
-createTeamData(hospitalityTeam,hospitalityTeamContainer);
-createTeamData(publicTeam,publicTeamContainer);
-createTeamData(alumniTeam,alumniTeamContainer);
-createTeamData(printingTeam,printingTeamContainer);
+function makeEventTeam(){
+    createTeamData(eventTeam,eventTeamContainer,eventHead);
+}
+function makeCentralTeam(){ 
+    createTeamData(centralTeam,centralTeamContainer,centralHead);
+}
+function makeHospitalityTeam(){
+    createTeamData(hospitalityTeam,hospitalityTeamContainer,hospitalityHead);
+}
+function makePublicTeam(){
+    createTeamData(publicTeam,publicTeamContainer,publicHead);
+}
+function makeAlumniTeam(){
+    createTeamData(alumniTeam,alumniTeamContainer,alumniHead);
+}
+function makePrintingTeam(){
+    createTeamData(printingTeam,printingTeamContainer,printingHead);
+}
+
+makeEventTeam();
+makeCentralTeam();
+makeHospitalityTeam();
+makePublicTeam();
+makeAlumniTeam();
+makePrintingTeam();
