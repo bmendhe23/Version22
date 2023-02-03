@@ -103,6 +103,7 @@
     text-transform: uppercase;
     transform: translateX(-300px);
     transition: transform 0.5s;
+    position:fixed;
   }
   
   .nav-options {
